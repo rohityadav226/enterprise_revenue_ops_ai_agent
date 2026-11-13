@@ -1,4 +1,9 @@
-from pydantic import BaseModel, Field, model_validator
+from pydantic import (
+    BaseModel,
+    Field,
+    model_validator,
+    ConfigDict
+) 
 from typing import List, Literal
 from datetime import date
 
@@ -40,6 +45,7 @@ class SalesAnalysisResponse(BaseModel):
      filters: SalesAnalysisFilters
 
 class MetricRecord(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     period: str
     region: str
     revenue: int

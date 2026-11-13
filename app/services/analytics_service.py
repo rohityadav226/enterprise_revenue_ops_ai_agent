@@ -1,17 +1,20 @@
-from app.data.mock_data import metrics
+from sqlalchemy.orm import Session
+from sqlalchemy import select
+from app.models import MetricModel
+
 from app.schemas.analytics import (
     AnalysisRequest, SalesAnalysisRequest
 )
 
-def get_filtered_metric(period: int, region: str):
-    results = [
-        item for item in metrics if item["period"] == period
-    ]
+def get_filtered_metric(
+        db: Session,
+        period: int,
+        region: str
+):
+    statement = select(MetricModel).where(MetricModel.period == period)
     if region != "all":
-        results = [
-            item for item in results if item['region'] == region
-        ]
-    return results
+        statement = select(MetricModel).where(MetricModel.region == region)
+    return list(db.scalars(statement).all())
 
 def prepare_analysis(request: AnalysisRequest):
     return {

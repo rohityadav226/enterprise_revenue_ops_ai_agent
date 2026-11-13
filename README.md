@@ -4,7 +4,7 @@ An enterprise-oriented backend application built with **Python, FastAPI and Post
 
 The application provides structured APIs for customer management, product information, business metrics and sales analysis requests. It follows a modular architecture that can be extended with Large Language Models (LLMs), Retrieval-Augmented Generation (RAG) and Agentic AI workflows.
 
-> **Project status:** In active development. Currently implementing the backend and database foundation as part of a 60-day Applied AI Engineering learning roadmap.
+> **Project status:** In active development. Currently implementing the backend and database foundation as part of Applied AI Engineering.
 
 ---
 

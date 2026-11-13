@@ -1,4 +1,9 @@
-from fastapi import APIRouter
+from fastapi import (
+    APIRouter,
+    Depends
+)
+from sqlalchemy.orm import Session
+from app.database import get_db
 from app.schemas.analytics import (
     MetricsResponse,
     AnalysisResponse,
@@ -13,12 +18,20 @@ from app.services.analytics_service import (
 )
 from typing import Literal
 
-router = APIRouter(tags=["Analystics"])
+router = APIRouter(
+    tags=["Analytics"]
+    )
 
 @router.get("/metrics", response_model=MetricsResponse)
-def get_metrics(period: Literal["monthly", "quarterly"] = "monthly",
-                 region: Literal["north", "south", "east", "west", "all"] = "all"):
-    metrics_details = get_filtered_metric(period, region)
+def get_metrics(db: Session = Depends(get_db),
+                period: Literal["monthly", "quarterly"] = "monthly",
+                region: Literal["north", "south", "east", "west", "all"] = "all"
+):
+    metrics_details = get_filtered_metric(
+        db,
+        period,
+        region
+    )
     return {
         "period": period,
         "region": region,
