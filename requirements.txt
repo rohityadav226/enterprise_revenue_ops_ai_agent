@@ -3,6 +3,8 @@ annotated-doc==0.0.5
 annotated-types==0.8.0
 anyio==4.14.2
 appnope @ file:///home/conda/feedstock_root/build_artifacts/appnope_1733332318622/work
+argon2-cffi==25.1.0
+argon2-cffi-bindings==26.2.0
 asttokens @ file:///home/conda/feedstock_root/build_artifacts/asttokens_1763409923949/work
 async-generator==1.10
 attrs==25.4.0
@@ -93,6 +95,7 @@ psycopg==3.3.8
 psycopg-binary==3.3.8
 ptyprocess @ file:///home/conda/feedstock_root/build_artifacts/ptyprocess_1733302279685/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl#sha256=92c32ff62b5fd8cf325bec5ab90d7be3d2a8ca8c8a3813ff487a8d2002630d1f
 pure_eval @ file:///home/conda/feedstock_root/build_artifacts/pure_eval_1733569405015/work
+pwdlib==0.3.1
 pyarrow==23.0.1
 pyasn1==0.6.2
 pyasn1_modules==0.4.2
@@ -103,6 +106,7 @@ pydantic-extra-types==2.11.1
 pydantic-settings==2.16.2
 pydantic_core==2.46.4
 Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1750615794071/work
+PyJWT==2.15.1
 pymupdf==1.28.2
 pyobjc-core==12.2.2
 pyobjc-framework-Cocoa==12.2.2

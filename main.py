@@ -3,7 +3,8 @@ from app.routers import (
     system,
     customers,
     products,
-    analytics
+    analytics,
+    auth
 )
 
 app = FastAPI(
@@ -16,3 +17,4 @@ app.include_router(system.router)
 app.include_router(customers.router)
 app.include_router(products.router)
 app.include_router(analytics.router)
+app.include_router(auth.router)

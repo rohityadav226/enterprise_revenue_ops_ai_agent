@@ -8,6 +8,8 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.schemas.catalog import Customer
 from app.services.catalog_service import get_customer_by_id
+from app.dependencies import get_current_user
+from app.models import UserModel
 
 router = APIRouter(
     prefix="/customers",
@@ -20,7 +22,8 @@ router = APIRouter(
         )
 def fetch_customer(
     db: Session = Depends(get_db),
-    customer_id: int = Path(gt=0)
+    customer_id: int = Path(gt=0),
+    current_user: UserModel = Depends(get_current_user)
     ):
     customer_detail = get_customer_by_id(db, customer_id)
     if customer_detail is None:

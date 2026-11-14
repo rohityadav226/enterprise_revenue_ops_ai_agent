@@ -1,9 +1,14 @@
 from sqlalchemy import select
-from app.database import Base, engine, SessionLocal
+from app.database import (
+    Base,
+    engine,
+    SessionLocal
+)
 from app.models import (
     CustomerModel,
     ProductModel,
-    MetricModel
+    MetricModel,
+    UserModel
 )
 
 def seed_database():
