@@ -54,7 +54,8 @@ def register_user(
         user = create_user(
             db,
             request.username,
-            request.password
+            request.password,
+            request.full_name
         )
 
     except IntegrityError:

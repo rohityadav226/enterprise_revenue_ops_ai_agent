@@ -6,6 +6,7 @@ def register_and_login(client):
     registration = client.post(
         "/auth/register",
         json={
+            "full_name": "Test Analyst"
             "username": "analyst_test",
             "password": "TestPassword2026!"
         }
@@ -18,6 +19,7 @@ def register_and_login(client):
     login = client.post(
         "/auth/login",
         json={
+            "full_name": "Test Analyst"
             "username": "analyst_test",
             "password": "TestPassword2026!"
         }
@@ -51,7 +53,7 @@ def test_user_registration(client):
     data = response.json()
 
     assert data["username"] == "new_analyst"
-    assert data["role"] == "analyst"
+    assert data["role"] == "revops_analyst"
 
     # Sensitive credentials must not be returned
     assert "password" not in data
@@ -65,6 +67,7 @@ def test_duplicate_username(client):
     response = client.post(
         "/auth/register",
         json={
+            "full_name": "Test Analyst"
             "username": "analyst_test",
             "password": "AnotherPassword2026!"
         }
@@ -80,6 +83,7 @@ def test_invalid_login(client):
     response = client.post(
         "/auth/login",
         json={
+            "full_name": "Test Analyst"
             "username": "analyst_test",
             "password": "WrongPassword2026!"
         }
@@ -206,3 +210,18 @@ def test_analyst_cannot_access_admin_endpoint(client):
     )
 
     assert response.status_code == 403
+
+def test_list_products(client):
+
+    token = register_and_login(client)
+
+    response = client.get(
+        "/products",
+        headers={
+            "Authorization": f"Bearer {token}"
+        }
+    )
+
+    assert response.status_code == 200
+    assert len(response.json()) == 1
+    assert response.json()[0]["product_id"] == 4000

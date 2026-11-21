@@ -15,21 +15,25 @@ def get_user_by_username(
     return db.scalar(statement)
 
 def create_user(
-        db: Session,
-        username: str,
-        password: str
+    db: Session,
+    username: str,
+    password: str,
+    full_name: str
 ):
+
     user = UserModel(
-        username = username,
-        hashed_password = hash_password(password),
-        role = "analyst",
-        is_active = True
+        username=username,
+        full_name=full_name,
+        hashed_password=hash_password(password),
+        role="revops_analyst",
+        is_active=True
     )
 
     db.add(user)
 
     try:
         db.commit()
+
     except IntegrityError:
         db.rollback()
         raise
