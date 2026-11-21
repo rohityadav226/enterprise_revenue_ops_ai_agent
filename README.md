@@ -1,202 +1,257 @@
-# Enterprise Revenue & Operations AI Agent
+# Enterprise Revenue Operations AI Agent
 
-An enterprise-oriented backend application built with **Python, FastAPI and PostgreSQL**, designed as the foundation for an AI-powered business intelligence and operations assistant.
+<p align="center">
+  <strong>An Enterprise AI Assistant for Revenue Intelligence, Sales Analytics and Business Operations</strong>
+</p>
 
-The application provides structured APIs for customer management, product information, business metrics and sales analysis requests. It follows a modular architecture that can be extended with Large Language Models (LLMs), Retrieval-Augmented Generation (RAG) and Agentic AI workflows.
-
-> **Project status:** In active development. Currently implementing the backend and database foundation as part of Applied AI Engineering.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-Backend-blue?logo=python" />
+  <img src="https://img.shields.io/badge/FastAPI-Framework-009688?logo=fastapi" />
+  <img src="https://img.shields.io/badge/PostgreSQL-Database-4169E1?logo=postgresql" />
+  <img src="https://img.shields.io/badge/SQLAlchemy-ORM-D71F00" />
+  <img src="https://img.shields.io/badge/AI-Agentic_AI-purple" />
+  <img src="https://img.shields.io/badge/Status-In_Development-orange" />
+</p>
 
 ---
 
 ## Overview
 
-The goal of this project is to develop an AI assistant that enables employees to interact with enterprise business data using natural language.
+The **Enterprise Revenue Operations AI Agent** is an enterprise-oriented Applied AI project designed to help B2B companies analyse sales performance, understand revenue operations and automate business workflows through natural-language interactions.
 
-The planned system will allow users to:
+The system is being developed around a fictional B2B SaaS company, NexusFlow Technologies.
 
-- Retrieve customer and product information.
-- Analyse business metrics and revenue performance.
-- Ask questions about business operations using natural language.
-- Retrieve relevant information from internal company documents.
-- Execute controlled, multi-step workflows through AI agents.
-- Receive structured, evidence-based responses.
+The long-term objective is to build an AI assistant capable of retrieving enterprise business information, analysing sales pipeline and bookings, searching internal documentation, identifying business risks and executing approved operational workflows.
 
-The current implementation focuses on the backend architecture, API development, request validation and PostgreSQL integration.
+The application is being developed using Python, FastAPI, PostgreSQL, SQLAlchemy, LLMs, Retrieval-Augmented Generation (RAG) and Agentic AI orchestration.
 
-## Tech Stack
+> **Project status:** Active development. The current development stage focuses on backend engineering, PostgreSQL integration, authentication, automated testing and the RevOps database architecture. LLM integration, RAG and agent orchestration are planned development phases.
+
+## Project Objectives
+
+The system aims to enable business employees to:
+
+- Analyse revenue bookings across different reporting periods.
+- Monitor sales pipeline and weighted pipeline.
+- Evaluate salesperson performance against assigned targets.
+- Identify stalled opportunities and potential business risks.
+- Retrieve customer account and opportunity information.
+- Search internal sales policies and business documents.
+- Ask business questions using natural language.
+- Generate evidence-based management reports.
+- Propose operational actions with appropriate human approval.
+
+## Business Domain
+
+The application focuses on B2B Revenue Operations (RevOps), connecting sales performance, business intelligence and operational workflows.
+
+The underlying business scenario represents a fictional enterprise software company with multiple sales regions, representatives, customer accounts, products and commercial opportunities.
+
+### Core Business Entities
+
+| Entity | Description |
+|---|---|
+| Users | Internal employees, managers, analysts and administrators |
+| Accounts | Companies purchasing enterprise software |
+| Contacts | Individuals associated with customer accounts |
+| Products | Enterprise software products and subscription offerings |
+| Opportunities | Potential commercial sales deals |
+| Opportunity Line Items | Products, quantities and negotiated prices within deals |
+| Sales Activities | Calls, meetings, demonstrations and follow-up tasks |
+| Sales Targets | Sales quotas assigned to employees |
+| Bookings | Confirmed closed-won commercial deals |
+
+## Planned System Architecture
+
+The intended architecture separates the API layer, business logic, database access and AI orchestration.
+
+```text
+                    Business Users
+                          |
+                          v
+                  FastAPI Application
+                          |
+                 Authentication / RBAC
+                          |
+                          v
+                  LangGraph Agent
+                          |
+             +------------+------------+
+             |            |            |
+             v            v            v
+        Analytics       RAG          MCP Tools
+         Tools        Retrieval      Integration
+             |            |            |
+             v            v            v
+        PostgreSQL    pgvector     Business APIs
+             |            |
+             +------------+
+                   |
+                   v
+          Evidence-Based Responses
+                   |
+                   v
+          Human-Approved Actions
+```
+
+The AI agent will access company information through predefined, permission-controlled tools rather than unrestricted database access.
+
+## Technology Stack
+
+### Backend Engineering
 
 | Technology | Purpose |
 |---|---|
 | Python | Core programming language |
 | FastAPI | REST API development |
-| Pydantic | Request validation and response schemas |
+| Pydantic | Request and response validation |
+| SQLAlchemy 2.x | Object Relational Mapping |
 | PostgreSQL | Relational database |
-| SQLAlchemy 2.x | Database ORM and queries |
 | Psycopg | PostgreSQL database driver |
-| python-dotenv | Environment variable management |
-| Git | Version control |
+| Alembic | Database schema migrations |
 
-## Architecture
+### Security and Testing
 
-The application follows a modular, layered architecture that separates API routing, data validation, business logic and database operations.
+| Technology | Purpose |
+|---|---|
+| JWT | Authentication tokens |
+| Argon2 | Password hashing |
+| FastAPI Dependencies | Authentication and authorization |
+| Role-Based Access Control | Permission management |
+| pytest | Automated testing |
+| HTTPX | API testing |
 
-```text
-                    Client / Frontend
-                           |
-                           v
-                    FastAPI Application
-                           |
-                           v
-                     API Routers
-                           |
-                +----------+----------+
-                |                     |
-                v                     v
-             Schemas              Services
-                |                     |
-                |                     v
-                |              Database Operations
-                |                     |
-                |                     v
-                |                SQLAlchemy
-                |                     |
-                +---------------------+
-                                      |
-                                      v
-                                 PostgreSQL
-```
+### Planned Applied AI Stack
 
-### Project Structure
+| Technology | Purpose |
+|---|---|
+| LLM APIs | Natural-language understanding and generation |
+| Embeddings | Semantic document representation |
+| pgvector | Vector storage and similarity search |
+| RAG | Retrieval-Augmented Generation |
+| LangGraph | Stateful agent orchestration |
+| MCP | Standardized tool and context integration |
 
-```text
-enterprise-ai-agent/
-│
-├── app/
-│   │
-│   ├── main.py
-│   ├── database.py
-│   ├── models.py
-│   ├── seed.py
-│   │
-│   ├── data/
-│   │   ├── __init__.py
-│   │   └── mock_data.py
-│   │
-│   ├── routers/
-│   │   ├── __init__.py
-│   │   ├── system.py
-│   │   ├── customers.py
-│   │   ├── products.py
-│   │   └── analytics.py
-│   │
-│   ├── schemas/
-│   │   ├── __init__.py
-│   │   ├── catalog.py
-│   │   └── analytics.py
-│   │
-│   └── services/
-│       ├── __init__.py
-│       ├── catalog_service.py
-│       └── analytics_service.py
-│
-├── .env.example
-├── .gitignore
-├── requirements.txt
-└── README.md
-```
+### Production Engineering
 
-## Current Features
+| Technology | Purpose |
+|---|---|
+| Docker | Application containerization |
+| GitHub Actions | Continuous Integration |
+| AWS | Cloud infrastructure |
+| ECS Fargate | Container deployment |
+| RDS PostgreSQL | Managed relational database |
+| CloudWatch | Logging and monitoring |
 
-### 1. REST API Development
-- FastAPI application setup.
-- GET and POST endpoints.
-- Path and query parameters.
-- JSON request and response handling.
-- Interactive API documentation through Swagger UI.
+## Development Progress
 
-### 2. Data Validation
-- Pydantic request and response models.
-- Field-level validation.
-- Type validation and restricted input values.
-- Cross-field validation using model validators.
-- Appropriate HTTP error responses.
+The project is being developed incrementally through a structured 60-day engineering roadmap.
 
-### 3. Database Integration
-- PostgreSQL database connectivity.
-- SQLAlchemy 2.x ORM.
-- Declarative database models.
-- Database session management.
-- Dependency injection for database sessions.
-- Database seeding with sample business records.
-
-### 4. Business Data Operations
-- Customer record retrieval.
-- Product information retrieval.
-- Revenue and order metrics.
-- Filtering metrics by reporting period and region.
-- Structured sales analysis requests.
-
-## API Endpoints
-
-The following endpoints are currently implemented.
-
-| Method | Endpoint | Description |
+| Days | Development Area | Status |
 |---|---|---|
-| GET | `/health` | Check application health |
-| GET | `/about` | Retrieve application information |
-| GET | `/customers/{customer_id}` | Retrieve customer information |
-| GET | `/products/{product_id}` | Retrieve product information |
-| GET | `/metrics` | Retrieve business metrics |
-| POST | `/analysis` | Submit a business analysis request |
-| POST | `/sales-analysis` | Submit a validated sales analysis request |
+| 1–2 | Python setup, HTTP fundamentals and FastAPI | Completed |
+| 3 | Pydantic validation and exception handling | Completed |
+| 4 | Modular application architecture | Completed |
+| 5 | PostgreSQL and SQLAlchemy integration | Completed |
+| 6 | JWT authentication and role-based access control | Completed |
+| 7 | Automated API testing | Completed |
+| 8 | CRUD operations, transactions and pagination | Completed |
+| 9 | RevOps business requirements and domain modelling | Completed |
+| 10 | Entity Relationship Diagram and database design | Completed |
+| 11 | SQLAlchemy RevOps models and relationships | In Progress |
+| 12 | Alembic migrations and database restructuring | Planned |
+| 13–14 | Synthetic business data and database validation | Planned |
+| 15–21 | SQL analytics and RevOps business metrics | Planned |
+| 22–28 | LLM engineering and model integration | Planned |
+| 29–35 | Retrieval-Augmented Generation | Planned |
+| 36–42 | LangGraph and Agentic AI workflows | Planned |
+| 43–49 | MCP, AI evaluation, security and reliability | Planned |
+| 50–56 | Docker, AWS and production deployment | Planned |
+| 57–60 | Integration, documentation and portfolio release | Planned |
 
-### Example: Retrieve a Customer
+## Current Backend Capabilities
 
-```http
-GET /customers/101
-```
+The existing backend foundation includes:
 
-Response:
+- Modular FastAPI application architecture.
+- REST API development with GET and POST endpoints.
+- Path parameters, query parameters and JSON request bodies.
+- Pydantic request and response validation.
+- PostgreSQL database connectivity.
+- SQLAlchemy ORM and database sessions.
+- JWT-based user authentication.
+- Password hashing using Argon2.
+- Role-based authorization.
+- Dependency injection for database and authentication.
+- Product CRUD operations and pagination.
+- Database transactions and rollback handling.
+- Automated API tests using pytest and HTTPX.
 
-```json
-{
-  "customer_id": 101,
-  "name": "Aarav Sharma",
-  "segment": "Enterprise"
-}
-```
+The project is currently transitioning its original sample data model into a dedicated B2B Revenue Operations database schema.
 
-### Example: Filter Business Metrics
+## RevOps Business Metrics
 
-```http
-GET /metrics?period=monthly&region=north
-```
+The analytics layer is planned around the following business metrics.
 
-### Example: Submit a Sales Analysis Request
+| Metric | Definition |
+|---|---|
+| Open Pipeline | Total value of open sales opportunities |
+| Weighted Pipeline | Opportunity value adjusted by win probability |
+| Bookings | Value of qualifying closed-won commercial commitments |
+| Win Rate | Closed-won deals divided by all closed opportunities |
+| Quota Attainment | Actual bookings divided by assigned sales target |
+| Average Deal Size | Average value of closed-won bookings |
+| Sales Cycle | Average time taken to close successful opportunities |
 
-```http
-POST /sales-analysis
-Content-Type: application/json
-```
+These metrics will be calculated from underlying business records rather than maintained as independent sources of truth.
 
-```json
-{
-  "start_date": "2026-10-01",
-  "end_date": "2026-10-31",
-  "minimum_revenue": 500000,
-  "region": "north",
-  "analysis_type": "revenue",
-  "notes": "Investigate monthly revenue performance"
-}
-```
+## Planned AI Agent Capabilities
 
-The endpoint validates the submitted parameters and returns the structured request information.
+### 1. Revenue Intelligence
+
+Example question:
+
+"Compare October and November bookings by region and identify the largest changes."
+
+The agent will retrieve the relevant records, calculate the differences and provide an evidence-based explanation.
+
+### 2. Sales Pipeline Intelligence
+
+Example question:
+
+"Show me our weighted pipeline for the next quarter."
+
+The agent will retrieve open opportunities, calculate weighted values and summarise pipeline performance.
+
+### 3. Account Intelligence
+
+Example question:
+
+"Give me a summary of Acme Technologies, including its opportunities and recent sales activities."
+
+The agent will combine account, opportunity and activity information.
+
+### 4. Enterprise Knowledge Retrieval
+
+Example question:
+
+"What is our approval policy for discounts above 20%?"
+
+The agent will retrieve information from internal documents using RAG and provide source references.
+
+### 5. Agentic Workflow Automation
+
+Example question:
+
+"Identify stalled opportunities and prepare follow-up tasks for their owners."
+
+The agent will identify relevant opportunities, propose appropriate actions and request human approval before creating operational tasks.
 
 ## Getting Started
 
 ### Prerequisites
 
-- Python 3.10 or newer
+- Python 3.10+
 - PostgreSQL
 - Git
 
@@ -222,95 +277,86 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-### 4. Configure PostgreSQL
-
-Create a PostgreSQL database and application user.
-
-Example:
-
-```sql
-CREATE ROLE ai_agent_user
-WITH LOGIN PASSWORD 'your_local_password';
-
-CREATE DATABASE enterprise_ai
-OWNER ai_agent_user;
-```
-
-### 5. Configure Environment Variables
+### 4. Configure Environment Variables
 
 Create a `.env` file in the project root.
 
+Example configuration:
+
 ```env
-DATABASE_URL=postgresql+psycopg://ai_agent_user:your_local_password@localhost:5432/enterprise_ai
+DATABASE_URL=postgresql+psycopg://username:password@localhost:5432/enterprise_ai
+
+JWT_SECRET_KEY=your_generated_secret_key
+JWT_ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
-Never commit your actual `.env` file or database credentials to GitHub.
+Never commit your actual `.env` file, passwords or signing keys to version control.
 
-### 6. Initialize the Database
+### 5. Start the Application
 
-Create the database tables and insert the initial sample records:
+The application setup and database migration instructions are being updated as the RevOps schema transition is implemented.
 
-```bash
-python -m app.seed
-```
-
-### 7. Start the FastAPI Application
+Once the database schema is synchronized with the current application models, start the development server using:
 
 ```bash
 fastapi dev app/main.py
 ```
 
-The API will be available at:
+### 6. API Documentation
 
-```text
-http://127.0.0.1:8000
-```
+Once the application is running:
 
-### 8. Access API Documentation
-
-Interactive Swagger documentation:
+Swagger UI:
 
 ```text
 http://127.0.0.1:8000/docs
 ```
 
-Alternative ReDoc documentation:
+ReDoc:
 
 ```text
 http://127.0.0.1:8000/redoc
 ```
 
-## Development Roadmap
-
-The project is being developed incrementally toward a production-oriented enterprise AI application.
-
-| Phase | Planned Development |
-|---|---|
-| Backend Engineering | FastAPI, modular architecture, validation and API testing |
-| Database Engineering | PostgreSQL, SQLAlchemy, database migrations and transactions |
-| Authentication | JWT, authentication and role-based access control |
-| LLM Integration | LLM APIs, structured outputs and function calling |
-| Retrieval-Augmented Generation | Embeddings, vector databases and grounded responses |
-| Agentic AI | LangGraph, tool calling, state management and MCP |
-| Human-in-the-Loop | Approval workflows and controlled agent actions |
-| AI Evaluation | Retrieval evaluation, agent evaluation and reliability testing |
-| Production Engineering | Docker, AWS, CI/CD, monitoring and observability |
-| Security | Prompt injection protection, data access controls and audit logging |
-
 ## Engineering Principles
 
-The project aims to follow these principles as it evolves:
+The project follows these development principles:
 
 - Modular and maintainable application architecture.
-- Separation of API, business logic and data access.
-- Input validation and structured responses.
-- Secure database and credential management.
-- Testable and reusable application components.
-- Controlled AI tool execution and human approval.
-- Reliability, observability and production readiness.
+- Separation of API, service, schema and data-access layers.
+- Relational database integrity and controlled transactions.
+- Secure authentication and authorization.
+- Automated unit and integration testing.
+- Evidence-based AI responses.
+- Controlled agent tool execution.
+- Human approval for consequential business actions.
+- AI evaluation, observability and reliability.
+- Secure credential and sensitive-data management.
+
+## Project Roadmap
+
+The long-term development objective is to deliver a deployable enterprise AI application with:
+
+1. A relational B2B Revenue Operations database.
+2. Reliable business analytics services.
+3. LLM-powered natural-language interaction.
+4. RAG-based enterprise knowledge retrieval.
+5. Stateful LangGraph agent workflows.
+6. MCP-based business tool integration.
+7. Permission-controlled operational actions.
+8. Automated AI evaluation and monitoring.
+9. Docker-based deployment on AWS.
+
+## Repository Status
+
+**Project:** Enterprise Revenue Operations AI Agent  
+**Domain:** Applied AI, Agentic AI and Enterprise Automation  
+**Development:** 60-day practical engineering roadmap  
+**Current Stage:** RevOps database modelling and backend engineering  
+**Status:** In active development
 
 ---
 
-**Project:** Enterprise Revenue & Operations AI Agent  
-**Domain:** Applied AI, Enterprise Automation and Agentic AI  
-**Status:** In active development
+The objective is to build a working enterprise AI system that can retrieve business information, analyse revenue performance, reason through multi-step workflows and execute controlled operational actions.
+
