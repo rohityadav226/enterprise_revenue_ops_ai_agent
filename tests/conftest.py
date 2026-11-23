@@ -27,7 +27,7 @@ from fastapi.testclient import TestClient
 
 from app.database import Base, get_db
 from main import app
-
+from decimal import Decimal
 from app.models import (
     CustomerModel,
     ProductModel,
@@ -66,10 +66,13 @@ def client():
             ),
 
             ProductModel(
-                product_id=4000,
-                product_name="Test Laptop",
-                price=100000,
-                category="laptop"
+                sku="TEST-001",
+                product_name="Test Enterprise Product",
+                description="Test product for API testing",
+                category="Analytics",
+                list_price=Decimal("100.00"),
+                currency_code="INR",
+                is_active=True
             ),
 
             MetricModel(

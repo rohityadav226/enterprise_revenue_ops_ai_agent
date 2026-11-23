@@ -42,23 +42,32 @@ def seed_database():
         if db.scalar(select(ProductModel).limit(1)) is None:
             db.add_all([
                 ProductModel(
-                    product_id=4000,
-                    product_name="iphone_16_pro",
-                    price=100000,
-                    category="smartphones"
+                    sku="TEST-001",
+                    product_name="Test Enterprise Product",
+                    description="Test product for API testing",
+                    category="Analytics",
+                    list_price=Decimal("100.00"),
+                    currency_code="INR",
+                    is_active=True
                 ),
                 ProductModel(
-                    product_id=5000,
-                    product_name="macbook_pro_m5",
-                    price=320000,
-                    category="laptop"
+                    sku="TEST-002",
+                    product_name="Test Enterprise Product 2",
+                    description="Test product for API testing",
+                    category="Analytics",
+                    list_price=Decimal("10000.00"),
+                    currency_code="INR",
+                    is_active=True
                 ),
                 ProductModel(
-                    product_id=4001,
-                    product_name="iphone_17_pro",
-                    price=120000,
-                    category="smartphones"
-                )
+                    sku="TEST-003",
+                    product_name="Test Enterprise Product 3",
+                    description="Test product for API testing",
+                    category="Analytics",
+                    list_price=Decimal("1000.00"),
+                    currency_code="INR",
+                    is_active=True
+                ),
             ])
 
         # Seed business metrics

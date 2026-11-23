@@ -11,9 +11,11 @@ from sqlalchemy import (
     Index,
     INTEGER,
     Numeric,
+    text,
     Text,
     UniqueConstraint,
-    func
+    func,
+    true
 )
 from datetime import date, datetime
 from sqlalchemy.orm import (
@@ -44,32 +46,65 @@ class CustomerModel(Base):
     )
 
 # Product table
+
 class ProductModel(Base):
     __tablename__ = "products"
+
+    __table_args__ = (
+        UniqueConstraint("sku", name="uq_products_sku"),
+    )
 
     product_id: Mapped[int] = mapped_column(
         Integer,
         primary_key=True
     )
 
-    product_name: Mapped[str] = mapped_column(
-        String(100),
-        nullable=False
-    )
-
-    price: Mapped[int] = mapped_column(
-        Integer,
-        nullable=False
-    )
-
-    category: Mapped[str] = mapped_column(
+    sku: Mapped[str] = mapped_column(
         String(50),
         nullable=False
     )
 
-    opportunity_line_items: Mapped[list[OpportunityLineItemModel]] = relationship(
-        back_populates="product"
+    product_name: Mapped[str] = mapped_column(
+        String(150),
+        nullable=False
     )
+
+    description: Mapped[str | None] = mapped_column(
+        Text,
+        nullable=True
+    )
+
+    category: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False
+    )
+
+    list_price: Mapped[Decimal] = mapped_column(
+        Numeric(14, 2),
+        nullable=False
+    )
+
+    currency_code: Mapped[str] = mapped_column(
+        CHAR(3),
+        nullable=False
+    )
+
+    is_active: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+        server_default=text("true")
+    )
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        nullable=False,
+        server_default=func.now()
+    )
+
+    opportunity_line_items: Mapped[list["OpportunityLineItemModel"]] = (
+        relationship(back_populates="product")
+    )
+
 
 # Business metrics table
 class MetricModel(Base):
@@ -102,11 +137,15 @@ class MetricModel(Base):
     )
 class UserModel(Base):
     __tablename__ = "users"
-
     __table_args__ = (
+        UniqueConstraint(
+            "username",
+            name="uq_users_username"
+        ),
         CheckConstraint(
-            "role IN ('sales_rep', 'sales_manager', 'revops_analyst', 'executive', 'admin')",
-            name="ck_user_role"
+            "role IN ('sales_rep', 'sales_manager', "
+            "'revops_analyst', 'executive', 'admin')",
+            name="ck_users_role"
         ),
     )
     user_id: Mapped[int] = mapped_column(
@@ -117,7 +156,6 @@ class UserModel(Base):
 
     username: Mapped[str] = mapped_column(
         String(50),
-        unique=True,
         nullable=False
     )
 
@@ -145,6 +183,7 @@ class UserModel(Base):
     manager_id: Mapped[int | None] = mapped_column(
         ForeignKey(
             "users.user_id",
+            name="fk_users_manager_id_users",
             ondelete="SET NULL"
         ),
         nullable=True,
@@ -474,7 +513,7 @@ class OpportunityModel(Base):
     )
 
     line_items: Mapped[
-        list[OpportunityLineItemModel]
+        list["OpportunityLineItemModel"]
     ] = relationship(
         back_populates="opportunity",
         cascade="all, delete-orphan",

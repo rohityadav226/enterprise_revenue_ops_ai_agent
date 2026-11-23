@@ -1,12 +1,12 @@
 
+
 def register_and_login(client):
 
-    # Register a test analyst
-
+    # Register a test user
     registration = client.post(
         "/auth/register",
         json={
-            "full_name": "Test Analyst"
+            "full_name": "Test Analyst",
             "username": "analyst_test",
             "password": "TestPassword2026!"
         }
@@ -15,11 +15,9 @@ def register_and_login(client):
     assert registration.status_code == 201
 
     # Login and retrieve access token
-
     login = client.post(
         "/auth/login",
         json={
-            "full_name": "Test Analyst"
             "username": "analyst_test",
             "password": "TestPassword2026!"
         }
@@ -27,7 +25,12 @@ def register_and_login(client):
 
     assert login.status_code == 200
 
-    return login.json()["access_token"]
+    token = login.json()["access_token"]
+
+    return {
+        "Authorization": f"Bearer {token}"
+    }
+
 
 
 def test_health_endpoint(client):
@@ -67,7 +70,7 @@ def test_duplicate_username(client):
     response = client.post(
         "/auth/register",
         json={
-            "full_name": "Test Analyst"
+            "full_name": "Test Analyst",
             "username": "analyst_test",
             "password": "AnotherPassword2026!"
         }
@@ -83,7 +86,7 @@ def test_invalid_login(client):
     response = client.post(
         "/auth/login",
         json={
-            "full_name": "Test Analyst"
+            "full_name": "Test Analyst",
             "username": "analyst_test",
             "password": "WrongPassword2026!"
         }
