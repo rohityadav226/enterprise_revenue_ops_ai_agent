@@ -357,6 +357,11 @@ def seed_opportunities(
                     else date.today() + timedelta(days=days_offset)
                 ),
                 "currency_code": "INR",
+                "created_at": (
+                    closed_at - timedelta(days=45)
+                    if is_closed
+                    else now
+                ),
                 "closed_at": closed_at,
             },
         )

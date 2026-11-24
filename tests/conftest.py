@@ -26,7 +26,7 @@ from sqlalchemy.pool import StaticPool
 from fastapi.testclient import TestClient
 
 from app.database import Base, get_db
-from main import app
+from app.main import app
 from decimal import Decimal
 from app.models import (
     CustomerModel,
