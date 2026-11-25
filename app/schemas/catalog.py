@@ -3,6 +3,7 @@ from pydantic import (
     Field,
     ConfigDict
 )
+from decimal import Decimal
 
 class Customer(BaseModel):
     model_config = ConfigDict(from_attributes=True)
