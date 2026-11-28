@@ -9,6 +9,12 @@ from app.routers import (
 )
 from contextlib import asynccontextmanager
 from app.services.llm.openai_provider import OpenAIProvider
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

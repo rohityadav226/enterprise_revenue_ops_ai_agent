@@ -20,7 +20,6 @@ from sqlalchemy.orm import Session
 from app.services.revops_query_service import (
     OpportunityFilters,
     build_opportunity_detail_query,
-    get_open_pipeline_summary,
 )
 
 
@@ -464,50 +463,3 @@ def get_at_risk_opportunities(
     ).mappings().all()
 
     return [dict(row) for row in results]
-
-
-def get_pipeline_overview(
-    db: Session,
-    filters: OpportunityFilters,
-):
-    """
-    Reuse Day 16 pipeline calculations and
-    add average value and weighted probability.
-    """
-
-    # Reuse existing Day 16 pipeline calculation
-    pipeline = get_open_pipeline_summary(
-        db,
-        filters,
-    )
-
-    base = get_filtered_open_opportunities(filters)
-
-    average_value = db.scalar(
-        select(
-            func.avg(base.c.opportunity_value)
-        )
-    )
-
-    open_pipeline = (
-        pipeline["open_pipeline"] or Decimal("0.00")
-    )
-
-    weighted_pipeline = (
-        pipeline["weighted_pipeline"] or Decimal("0.00")
-    )
-
-    weighted_probability = (
-        weighted_pipeline * Decimal("100.00")
-        / open_pipeline
-        if open_pipeline > 0
-        else Decimal("0.00")
-    )
-
-    return {
-        **pipeline,
-        "average_opportunity_value": (
-            average_value or Decimal("0.00")
-        ),
-        "weighted_probability_pct": weighted_probability,
-    }

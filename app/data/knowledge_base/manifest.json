@@ -1,0 +1,40 @@
+{
+  "corpus_name": "NexusFlow Synthetic Internal Knowledge Corpus",
+  "corpus_version": "1.0",
+  "effective_date": "2026-01-01",
+  "synthetic_training_data": true,
+  "documents": [
+    {
+      "document_id": "NXF-SALES-POL-001",
+      "file": "sales_operating_policy.md",
+      "title": "Sales Operating Policy",
+      "document_type": "sales_policy",
+      "classification": "internal",
+      "allowed_roles": ["sales_rep", "sales_manager", "sales_leader", "revops_analyst", "admin"]
+    },
+    {
+      "document_id": "NXF-PRICE-POL-001",
+      "file": "pricing_and_discount_policy.md",
+      "title": "Pricing and Discount Approval Policy",
+      "document_type": "pricing_policy",
+      "classification": "confidential_internal",
+      "allowed_roles": ["sales_manager", "sales_leader", "finance", "revops_analyst", "admin"]
+    },
+    {
+      "document_id": "NXF-SALES-PLAY-001",
+      "file": "sales_playbook.md",
+      "title": "Sales Execution Playbook",
+      "document_type": "sales_playbook",
+      "classification": "internal",
+      "allowed_roles": ["sales_rep", "sales_manager", "sales_leader", "revops_analyst", "admin"]
+    },
+    {
+      "document_id": "NXF-ACCT-GUIDE-001",
+      "file": "account_management_guidelines.md",
+      "title": "Account Management Guidelines",
+      "document_type": "account_guidelines",
+      "classification": "internal",
+      "allowed_roles": ["account_manager", "customer_success_manager", "sales_rep", "sales_manager", "sales_leader", "revops_analyst", "admin"]
+    }
+  ]
+}
